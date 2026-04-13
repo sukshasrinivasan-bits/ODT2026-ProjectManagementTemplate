@@ -15,7 +15,7 @@
 ## Fork and rename this repository
 After forking this repository, rename it using the format:
 
-`ODT-2026-TeamName`
+`ODT-2026-PULLPIN`
 
 ### Example
 `ODT-2026-PixelWizards`
@@ -146,29 +146,29 @@ Examples:
 - move object → sensor detects → sound/light response → player reacts
 
 **Response:**  
-`[Write here]`
+`[connect → select pin (app) → trigger servo (pull pin) → coin drops → load sensor detects → light as experience (NeoPixel) → observe result → repeat]`
 
 ## 4.2 Intended Player / Audience
 
 | Question | Response |
 |---|---|
-| Who is this for? | `[Write here]` |
+| Who is this for? | `[Students, casual players, and exhibition visitors interested in interactive physical-digital games]` |
 | Age range | `[9+]` |
-| Solo or multiplayer | `[Write here]` |
+| Solo or multiplayer | `[Primarily solo, but can be played turn-based in groups]` |
 | Expected duration of one round | `[2-5 minutes]` |
-| What should the player feel? | `[Write here]` |
-| Is explanation required before use? | `[Write here]` |
+| What should the player feel? | `[Curiosity, anticipation, and satisfaction through cause-and-effect interaction, along with playful engagement]` |
+| Is explanation required before use? | `[Minimal — intuitive interaction, but basic instructions improve experience]` |
 
 ## 4.3 Player Journey
 Describe exactly how a player will use the project.
 
-1. **Approach:** `[How does the player first encounter it?]`
-2. **Start:** `[How do they begin?]`
-3. **First Action:** `[What do they do first?]`
-4. **Main Interaction:** `[What keeps happening during use?]`
-5. **System Response:** `[How does the project respond?]`
-6. **Win / Lose / End Condition:** `[How does one round end?]`
-7. **Reset:** `[How does the next round begin?]`
+1. **Approach:** `[How does the player first encounter it?]`[The player encounters a physical setup with multiple pins and a coin collection bucket, accompanied by a mobile interface.]
+2. **Start:** `[How do they begin?]`[The player takes the phone contected to the system via Bluetooth using the app.]
+3. **First Action:** `[What do they do first?]`[They press a button on the app to select and trigger a specific pin.]
+4. **Main Interaction:** `[What keeps happening during use?]`[The player continues selecting different pins through the app, experimenting with timing and choice to release coins into the bucket.]
+5. **System Response:** `[How does the project respond?]`[Each input triggers a servo that pulls a pin, releasing a coin. The load sensor detects the coin drop, and NeoPixel lights respond with dynamic color feedback.]
+6. **Win / Lose / End Condition:** `[How does one round end?]`[A round ends after a fixed number of attempts or time. Success can be defined by the number of coins collected or achieving a target weight.]
+7. **Reset:** `[How does the next round begin?]`[Pins are manually reset to their original positions, the bucket is emptied and weight reset, and the system is ready for the next player.]
 
 ## 4.4 Rules of Play
 If your project is a game, list the rules clearly.
@@ -211,16 +211,16 @@ What features are nice to have but not essential?
 ## 6.1 Project Type
 Check all that apply.
 
-- [ ] Electronics-based
+- [YES] Electronics-based
 - [ ] Mechanical
-- [ ] Sensor-based
-- [ ] App-connected
+- [YES] Sensor-based
+- [YES] App-connected
 - [ ] Motorized
 - [ ] Sound-based
 - [ ] Light-based
 - [ ] Screen/UI-based
 - [ ] Fabricated structure
-- [ ] Game logic based
+- [YES] Game logic based
 - [ ] Installation / tabletop experience
 - [ ] Other: `[Write here]`
 
@@ -289,7 +289,7 @@ Add a sketch with labels showing:
 Check all that apply.
 
 - [ ] Gears
-- [ ] Pulleys
+- [YES] Pulleys
 - [ ] Belt drives
 - [ ] Linkages
 - [ ] Hinges
@@ -297,7 +297,7 @@ Check all that apply.
 - [ ] Springs
 - [ ] Bearings
 - [ ] Wheels
-- [ ] Sliders
+- [YES] Sliders
 - [ ] Levers
 - [ ] Not applicable
 
@@ -418,7 +418,7 @@ Suggested sequence:
 # 11. MIT App Inventor Plan
 
 ## 11.1 Is an app part of this project?
-- [ ] Yes
+- [YES] Yes
 - [ ] No
 
 If yes, complete this section.
@@ -480,7 +480,7 @@ Examples:
 - Why bearing instead of a plain shaft hole?
 
 **Response:**  
-`[Write here]`
+`[Pine wood instead of MDF because it would not hold the continuous movement happening through the game and also the MDF deteriorates with time.Arcylic is transparent.]`
 
 ## 12.3 Items to Purchase Separately
 
