@@ -373,8 +373,14 @@ Insert a hand-drawn or software-made circuit diagram.
 
 | Tool / Platform | Purpose |
 |---|---|
-| `[MicroPython / Arduino / MIT App Inventor / CAD tool / other]` | `[Purpose]` |
-| `[Tool]` | `[Purpose]` |
+| Micropython code | Used to create a code to connect ESP32, PSU, servos, neopixel, ultrasonic sensor and record its functions |
+| MIT App inventor | Used to make interface for pressing the buttons required to move the pull pins |
+| Laser cutting software tool | Used to make the hardware intricate parts by laser cutting acrylic sheets |
+| Servo motors (5 of the 6) | Servos have a function of moving an angle of 90 degrees to let the coins pass that path |
+| Continous sweep servo (6th servo) | This servo has the function of moving an angle of 125 degrees continously and the player must time the pull of the 4th or the 5th servo accurately to win the game |
+| Ultrasonic sensor | The sensor is placed on the platfrom that decides the winner - the second coins fall on that platform the colour changes to green and then multiple celebratory colours |
+| Neopixel | The neopixel rotates a red light on the circular strip until the player wins and then it resets |
+
 
 ## 10.2 Software Logic
 Describe what the code must do.
