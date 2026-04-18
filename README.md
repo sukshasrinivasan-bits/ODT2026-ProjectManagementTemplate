@@ -62,10 +62,10 @@ By the final review, this README should clearly show:
 | `[Suksha]` | `[Electronics / Coding/ Debugging]` | `[Coding and electronics]` | `[Coding prowess and troubleshooting]` |
 
 ## 1.3 Project Title
-`[Enter the title of your project]`
+`[Pull pin game]`
 
 ## 1.4 One-Line Pitch
-`[Describe your project in one sentence]`
+`[A game where you have to drop coins through a maze by testing you reaction time]`
 
 ## 1.5 Expanded Project Idea
 In 1–2 paragraphs, explain:
@@ -75,7 +75,7 @@ In 1–2 paragraphs, explain:
 - what technologies are involved.
 
 **Response:**  
-`[Write here]`
+`[A game with several pins that need to pulled out using a web interface to make a coin/ several coins together go through and obstacle course down the correct shoot into the bucket which holds an ultra sonic sensor. It creates a fun and adrenaline filled game of chance. It is based partially on chance and partially on reflexes, the time sensitivity, and planning.]`
 
 ---
 
@@ -101,7 +101,7 @@ Answer the following:
 - Why would someone want to try it again?
 
 **Response:**  
-`[Write here]`
+`[This project creates an interactive, arcade-like experience where players trigger mechanisms to release coins and aim to achieve a winning condition. The experience is fast, responsive, and visually engaging, combining physical movement with light feedback. The player should feel excitement, anticipation, and a sense of control while interacting with the system. The unpredictability of outcomes and the satisfying physical response encourage repeated attempts and playful experimentation.]`
 
 ## 2.3 Design Persona
 Complete the sentence below:
@@ -109,7 +109,7 @@ Complete the sentence below:
 > We are designing this project as if we are a small creative studio making a **[toy / game / playable object / interactive experience]** for **[children / teens / adults / classmates / exhibition visitors / mixed audience]**.
 
 **Response:**  
-`[Write here]`
+`[We are designing this project as if we are a small creative studio making an interactive game for a mixed audience of classmates and exhibition visitors, focusing on creating a playful, engaging, and easy-to-understand experience that invites quick participation and repeat interaction.]`
 
 ---
 
@@ -120,15 +120,15 @@ List what inspired the project.
 
 | Source Type | Title / Link | What Inspired You |
 |---|---|---|
-| `[Toy / Board game / App / Video / Website / Object]` | `[Link or title]` | `[What did you learn or borrow?]` |
-| `[Toy / Board game / App / Video / Website / Object]` | `[Link or title]` | `[What did you learn or borrow?]` |
-| `[Toy / Board game / App / Video / Website / Object]` | `[Link or title]` | `[What did you learn or borrow?]` |
+| `[Toy /App/ Website]` | `[(https://poki.com/en/g/how-to-loot-pin-pull)]` | `[to be filled]` |
+| `[Toy / Game]` | `[Coin pusher arcade machines and the idea of using coins, physical reward systems, and repeatable play for engagement]` | `[What did you learn or borrow?]` |
+| `[Object]` | `[Servo-based mechanisms]` | `[Using controlled mechanical movement to create precise, repeatable interactions.]` |
 
 ## 3.2 Original Twist
 What makes your project original?
 
 **Response:**  
-`[Write here]`
+`[The project translates a digital pin-pull game into a physical, interactive system using servos, sensors, and real coins. It combines app-based control with tangible mechanics, adding unpredictability through real-world physics and feedback through lights and motion, making the experience more immersive and playful than its digital inspiration.]`
 
 ---
 
@@ -144,37 +144,37 @@ Examples:
 - move object → sensor detects → sound/light response → player reacts
 
 **Response:**  
-`[Write here]`
+`[Connect → Select pin (app) → Trigger servo (pull pin) → Coin drops → Ultrasonic sensor detects → light as experience (NeoPixel) → Observe result → Repeat]`
 
 ## 4.2 Intended Player / Audience
 
 | Question | Response |
 |---|---|
-| Who is this for? | `[Write here]` |
-| Age range | `[Write here]` |
-| Solo or multiplayer | `[Write here]` |
-| Expected duration of one round | `[Write here]` |
-| What should the player feel? | `[Write here]` |
-| Is explanation required before use? | `[Write here]` |
+| Who is this for? | `[Students, casual players, and exhibition visitors interested in interactive physical-digital games]` |
+| Age range | `[9+]` |
+| Solo or multiplayer | `[Primarily solo, but can be played turn-based in groups]` |
+| Expected duration of one round | `[2-5 minutes]` |
+| What should the player feel? | `[Curiosity, anticipation, and satisfaction through cause-and-effect interaction, along with playful engagement]` |
+| Is explanation required before use? | `[Minimal — intuitive interaction, but basic instructions improve experience]` |
 
 ## 4.3 Player Journey
 Describe exactly how a player will use the project.
 
-1. **Approach:** `[How does the player first encounter it?]`
-2. **Start:** `[How do they begin?]`
-3. **First Action:** `[What do they do first?]`
-4. **Main Interaction:** `[What keeps happening during use?]`
-5. **System Response:** `[How does the project respond?]`
-6. **Win / Lose / End Condition:** `[How does one round end?]`
-7. **Reset:** `[How does the next round begin?]`
+1. **Approach:** `[The player encounters a physical setup with multiple pins and a coin collection bucket, accompanied by a mobile interface]`
+2. **Start:** `[The player takes the phone contected to the system via Bluetooth using the app.]`
+3. **First Action:** `[They press a button on the app to select and trigger a specific pin.]`
+4. **Main Interaction:** `[The player continues selecting different pins through the app, experimenting with timing and choice to release coins into the bucket.]`
+5. **System Response:** `[Each input triggers a servo that pulls a pin, releasing a coin. The ultrasonic sensor detects the coin drop and the NeoPixel lights respond with dynamic color feedback.]`
+6. **Win / Lose / End Condition:** `[A round ends after a fixed number of attempts or time. Success can be defined by the Neopixel flashing celebratory colours.]`
+7. **Reset:** `[[Pins are manually reset to their original positions, the bucket is emptied and the game resets, and the system is ready for the next player.]`
 
 ## 4.4 Rules of Play
 If your project is a game, list the rules clearly.
 
-- `[Rule 1]`
-- `[Rule 2]`
-- `[Rule 3]`
-- `[Rule 4]`
+- `[Press one of the five buttons to trigger a corresponding pin (servo).]`
+- `[[Each pin releases coins into the system.]`
+- `[Players can press buttons multiple times to influence the outcome.]`
+- `[Win: When enough coins reach the target area (detected by the sensor), the game triggers a win response.]`
 
 ---
 
@@ -183,24 +183,24 @@ If your project is a game, list the rules clearly.
 ## 5.1 Definition of “Playable”
 Your project will be considered complete only if these conditions are met.
 
-- [ ] `[Condition 1]`
-- [ ] `[Condition 2]`
-- [ ] `[Condition 3]`
-- [ ] `[Condition 4]`
-- [ ] `[Condition 5]`
+- [YES] `[App successfully connects to the ESP32 via WiFi]`
+- [YES] `[Each button correctly triggers its corresponding servo]`
+- [YES] `[Pins release coins reliably without jamming]`
+- [YES] `[System detects a win condition using the sensor]`
+- [YES] `[Visual feedback (NeoPixel lights) responds to gameplay]`
 
 ## 5.2 Minimum Viable Version
 What is the smallest version of this project that still delivers the core experience?
 
 **Response:**  
-`[Write here]`
+`[The smallest version of the project includes one servo-controlled pin, a basic app with one button to trigger it, and a simple mechanism to release coins. The core experience is achieved if pressing the button causes a visible mechanical action and produces a satisfying, repeatable interaction.]`
 
 ## 5.3 Stretch Features
 What features are nice to have but not essential?
 
-- `[Stretch feature 1]`
-- `[Stretch feature 2]`
-- `[Stretch feature 3]`
+- `[Lightfeedback from Neopixel]`
+- `[Ultrasonic sensor to detect win]`
+- `[App instead of physical buttons]`
 
 ---
 
@@ -209,17 +209,17 @@ What features are nice to have but not essential?
 ## 6.1 Project Type
 Check all that apply.
 
-- [ ] Electronics-based
+- [YES] Electronics-based
 - [ ] Mechanical
-- [ ] Sensor-based
-- [ ] App-connected
+- [YES] Sensor-based
+- [YES] App-connected
 - [ ] Motorized
 - [ ] Sound-based
-- [ ] Light-based
-- [ ] Screen/UI-based
+- [YES] Light-based
+- [YES] Screen/UI-based
 - [ ] Fabricated structure
-- [ ] Game logic based
-- [ ] Installation / tabletop experience
+- [YES] Game logic based
+- [YES] Installation / tabletop experience
 - [ ] Other: `[Write here]`
 
 ## 6.2 High-Level System Description
@@ -233,7 +233,7 @@ Include:
 - app interaction if any.
 
 **Response:**  
-`[Write here]`
+`[The system is controlled through a mobile app that acts as the main input, where each button press sends a signal over WiFi to the ESP32. The ESP32 processes these signals and triggers the corresponding servo motors to pull pins and release coins. An ultrasonic sensor continuously monitors the system to detect when enough coins reach the target area, acting as a win condition. Based on this, the system processes whether the game is ongoing or completed. Outputs include the physical movement of servos, coins falling through the structure, and visual feedback through NeoPixel LEDs that animate during gameplay and celebrate when the player wins. The physical structure consists of a frame holding the pins, servo mechanisms, coin pathways, and a collection area, creating a tangible and interactive game controlled digitally through the app.]`
 
 ## 6.3 Input / Output Map
 
