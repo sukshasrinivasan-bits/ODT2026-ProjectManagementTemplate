@@ -65,7 +65,7 @@ By the final review, this README should clearly show:
 `[Pull pin game]`
 
 ## 1.4 One-Line Pitch
-`[A game where you have to drop coins through a maze by testing you reaction time]`
+`[A game where you have to drop coins through a maze by testing your reaction time]`
 
 ## 1.5 Expanded Project Idea
 In 1–2 paragraphs, explain:
