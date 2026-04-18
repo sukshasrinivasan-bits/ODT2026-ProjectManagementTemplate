@@ -15,7 +15,7 @@
 ## Fork and rename this repository
 After forking this repository, rename it using the format:
 
-`ODT-2026-TeamName`
+`ODT-2026-PULLPIN`
 
 ### Example
 `ODT-2026-PixelWizards`
@@ -52,14 +52,14 @@ By the final review, this README should clearly show:
 # 1. Team Identity
 
 ## 1.1 Studio / Group Name
-`[Enter your group name]`
+`[Khushi and Suksha]`
 
 ## 1.2 Team Members
 
 | Name | Primary Role | Secondary Role | Strengths Brought to the Project |
 |---|---|---|---|
-| `[Student 1]` | `[Electronics / Coding / App / Fabrication / Mechanics]` | `[Role]` | `[Write here]` |
-| `[Student 2]` | `[Electronics / Coding / App / Fabrication / Mechanics]` | `[Role]` | `[Write here]` |
+| `[Khushi]` | `[Electronics / App / Fabrication / Mechanics]` | `[making the physical setup and app]` | `[Physical build of the setup and mechanics]` |
+| `[Suksha]` | `[Electronics / Coding/ Debugging]` | `[Coding and electronics]` | `[Coding prowess and troubleshooting]` |
 
 ## 1.3 Project Title
 `[Enter the title of your project]`
