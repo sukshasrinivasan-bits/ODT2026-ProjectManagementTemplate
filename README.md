@@ -239,10 +239,10 @@ Include:
 
 | System Part | Type | What It Does |
 |---|---|---|
-| `[Button / Sensor / Switch / App Input]` | Input | `[Describe]` |
-| `[ESP32 / Controller]` | Processing | `[Describe]` |
-| `[LED / Motor / Servo / Buzzer / Display]` | Output | `[Describe]` |
-| `[Mechanical Assembly]` | Physical Action | `[Describe]` |
+| `[ App Input]` | Input | `[Sends]` |
+| `[ESP32 / Controller]` | Processing | `[Receives signals, processes game logic, triggers servos, reads sensor data, and controls LEDs]` |
+| `[LServos + NeoPixel LEDs]` | Output | `[Servos pull pins to release coins; LEDs provide visual feedback and animations]` |
+| `[Mechanical Assembly]` | Physical Action | `[Pins, threads, and structure guide and release coins into the collection area]` |
 
 ---
 
@@ -287,23 +287,23 @@ Add a sketch with labels showing:
 Check all that apply.
 
 - [ ] Gears
-- [ ] Pulleys
+- [YES] Pulleys
 - [ ] Belt drives
-- [ ] Linkages
+- [YES] Linkages
 - [ ] Hinges
 - [ ] Shafts
 - [ ] Springs
 - [ ] Bearings
 - [ ] Wheels
-- [ ] Sliders
-- [ ] Levers
+- [YES] Sliders
+- [YES] Levers
 - [ ] Not applicable
 
 ## 8.2 Mechanical Description
 Describe the mechanism and what it is meant to do.
 
 **Response:**  
-`[Write here]`
+`[The servo pulls a thread that is wrapped around a fixed axle and wheel that in turn pulls the pin to let the coins fall]`
 
 ## 8.3 Motion Planning
 If something moves, explain:
@@ -314,7 +314,7 @@ If something moves, explain:
 - what could go wrong.
 
 **Response:**  
-`[Write here]`
+The servo arm rotates when triggered, pulling the thread that removes the pin. The motion is about 90 degrees, controlled by the servo’s programmed angle, and occurs over a few seconds for smooth release. The pin moves linearly outward, allowing coins to fall. The speed is moderate to ensure control and avoid jamming. Possible issues include thread slipping, servo not generating enough torque, or the pin getting stuck due to friction or misalignment.
 
 ## 8.4 Simulation / CAD / Animation Before Making
 If your project includes mechanical motion, document the digital planning before fabrication.
@@ -339,14 +339,15 @@ What changed after the CAD, animation, or simulation stage?
 | Component | Quantity | Purpose |
 |---|---:|---|
 | `[ESP32]` | `1` | `[Main controller]` |
-| `[Component]` | `[Qty]` | `[Purpose]` |
-| `[Component]` | `[Qty]` | `[Purpose]` |
+| `[Servo]` | `[6]` | `[control the obstacles of the game]` |
+| `[Ultra sonic sensor]` | `[1]` | `[senses the coins falling in the winning slot and sends a signal to the neopixel]` |
+| `[Neopixel]` | `[1]` | `[Remains red until it recieves the signal from the ultra sonic and then turns green and after that a gradient in celebration]` |
 
 ## 9.2 Wiring Plan
 Describe the main electrical connections.
 
 **Response:**  
-`[Write here]`
+In concurrence with the code - the wiring of 5 of the sercos will be on GPIOs 22, 4, 5, 18 and 19. The GNDs of these servos will be connected to PSU GND. The 6th servo which is the continous sweep servo will be connected to GPIO 21 and the GND will be connected to PSU GND. PSU GND will be connected to the ESP 32's GND so that both grounds are connected. All red cables of teh servos go to the 5V power unit and the yellow wires go to the GPIO pins while all the black wires of the servos go to GND. Then, the ultrasonic sensor will be connected via jumper cables. TRIG and ECHO will be connected to GPIO pins 32 (Pin.OUT) and 33 (Pin.IN) respectively. GND of the sensor will again go to PSU GND and VCC will go to 5V power. The NeoPixel will be connected to the GPIO pin 13 and the red and black wires will go to power and GND respectively. The placement of these can be toggled/shifted with jumper cables - but this is the essence of the wiring in our project.
 
 ## 9.3 Circuit Diagram
 Insert a hand-drawn or software-made circuit diagram.
@@ -358,10 +359,10 @@ Insert a hand-drawn or software-made circuit diagram.
 
 | Question | Response |
 |---|---|
-| Power source | `[USB / battery / adapter / other]` |
-| Voltage required | `[Write here]` |
-| Current concerns | `[Write here]` |
-| Safety concerns | `[Write here]` |
+| Power source | `[Power Supply Unit - connected to the adapter]` |
+| Voltage required | `[5V]` |
+| Current concerns | `[There was concern that the current passing through the circuit would not be enough to power 6 servos, the neopixel and the sensor, but that concern was resolved through the trials]` |
+| Safety concerns | `[We were concerned that the PSU migth over heat and burn - which did happen once - but then we found out how to manage the current in the circuit well enough that all the components are powered and it is safe to work around.]` |
 
 ---
 
@@ -395,7 +396,7 @@ Include:
 - reset behavior.
 
 **Response:**  
-`[Write here]`
+The startup starts with all the servos excpet the continous sweep servo in rest position. The continous sweep servo moves continously 125 degrees back and forth - this is to increase the difficulty of the game. The neopixel is also on during startup - it powers a red light going round and round the neopixel - it loops until the winner is decided. As shown in the flowchart, the initialization of the app also happens during runtime. Once the app is ready, the buttons correspond to the servos to be moved. The buttons are pressed to make the coins move in the path the player intends. The buttons cannot be pressed more than once - demanding higher awareness and planning from the player. Each time a button is pressed, the corresponding servo moves 90 degrees and pulls the pin attatched to it making the coins fall into a path. The Ultrasonic sensor senses coins as they fall into the path that determines if the player wins the game or not. As soon as the sensor senses coins falling into that path, it makes the neopixel change from red to flash green twice to signal the win and then it transforms into celbratory colors for a while and then resets the game. The reset means that the runtime is over and for the game to be played again, the code needs to be run again.
 
 ## 10.3 Code Flowchart
 Insert a flowchart showing your code logic.
@@ -410,13 +411,300 @@ Suggested sequence:
 - repeat or reset,
 - error handling.
 
+This is the algorithm sequence of the code that follows the flowchart:
+
+START
+Initialization
+
+1.	Initialize App communication using App Inventor link. 
+2.	Define servo duty cycle limits (MIN = 26, MAX = 128). 
+3.	Initialize: 
+o	5 positional servos 
+o	1 continuous servo 
+4.	Set all servos to 0° (rest position). 
+5.	Stop continuous servo. 
+6.	Initialize ultrasonic sensor (TRIG + ECHO pins). 
+7.	Initialize NeoPixel LED (16 LEDs). 
+8.	Initialize:
+
+-	Game state variables (active, press_count, etc.) 
+-	Win detection variables (stable_count, win_latch) 
+-	Sweep control variables
+
+Main Loop
+Step 1: Process App Input
+
+-	Check for incoming app requests 
+- IF request contains servo number (1–5): 
+- 	Increment corresponding press_count[i]
+
+Step 2: Win Detection (Ultrasonic Sensor)
+
+- Measure distance using ultrasonic sensor
+     IF distance is:
+  
+-	Valid AND between 2 cm and WIN_DISTANCE
+→ Increment stable_count 
+
+     ELSE
+
+→ Reset stable_count = 0 
+
+-	IF stable_count ≥ REQUIRED_STABLE: 
+-	Set win_latch = True 
+-	Stop continuous servo 
+-	Run celebration LED animation 
+-	Clear LEDs
+
+Step 3: LED Animation
+
+IF game NOT won: 
+- 	Run rotating red LED pattern 
+
+Step 4: Servo Queue System (for 5 servos)
+
+FOR each servo i from 0 to 4:
+•	Start Movement 
+IF: 
+- Servo is NOT active 
+	press_count[i] > 0
+THEN: 
+- 	Move servo to TRIGGER_ANGLE 
+-	Mark active[i] = True 
+-	Set return_time[i] = now + RETURN_DELAY 
+
+	Return Movement 
+IF: 
+-	Servo is active 
+-	Current time ≥ return_time 
+THEN: 
+- 	Move servo back to 0° 
+- 	Turn off PWM (duty(0)) 
+-	Mark active[i] = False 
+-	Decrease press_count[i]
+
+Step 5: Continuous Servo Sweep
+
+IF game NOT won: 
+-	Every SWEEP_INTERVAL: 
+-	Toggle direction
+
+IF forward:
+→ Set speed = CONT_FWD 
+ELSE:
+→ Set speed = CONT_REV
+
+Step 6: Delay
+
+•	Wait 20 ms 
+•	Repeat loop
+
+This is the flowchart for the code:
+
 **Insert image below:**  
 `[Upload image and link here]`
 
 ## 10.4 Pseudocode
 
 ```text
-[Write your pseudocode here]
+Somewhere during the project experimentation, we wanted to experiment with a load cell and map out the wins based on the amount/weight of the coins that landed on the load cell platform - but all our load cell hardware was faulty and due to unvailability of a replacement, we decidede to go ahead with our initial idea of using a ultrasonic sensor to give the win feedback to the player.
+- This is the code we are using with the Ultrasonic sensor, the neopixel and all 6 servos:
+
+[
+from applink import AppInventorLink
+from machine import Pin, PWM, time_pulse_us
+from neopixel import NeoPixel
+import time
+import random
+
+#App link
+app = AppInventorLink()
+
+# Servoss
+SERVO_MIN_DUTY = 26
+SERVO_MAX_DUTY = 128
+
+servo_pins = [22, 4, 5, 18, 19]
+servos = [PWM(Pin(p), freq=50) for p in servo_pins]
+
+servo6 = PWM(Pin(21), freq=50)  # continuous sweep
+
+def set_angle(servo, angle):
+    duty = int(SERVO_MIN_DUTY + (angle / 180.0) * (SERVO_MAX_DUTY - SERVO_MIN_DUTY))
+    servo.duty(duty)
+
+# continuous servo control
+CONT_STOP = 77
+CONT_FWD  = 90
+CONT_REV  = 64
+
+def set_continuous(speed):
+    servo6.duty(speed)
+
+# Initialize servos
+for s in servos:
+    set_angle(s, 0)
+
+set_continuous(CONT_STOP)
+
+# ultrasonic sensor
+trig = Pin(32, Pin.OUT)
+echo = Pin(33, Pin.IN)
+
+def get_distance():
+    trig.value(0)
+    time.sleep_us(2)
+    trig.value(1)
+    time.sleep_us(10)
+    trig.value(0)
+
+    duration = time_pulse_us(echo, 1, 30000)
+    if duration < 0:
+        return None
+
+    return (duration * 0.0343) / 2
+
+WIN_DISTANCE = 10
+
+# neopixell (my fav)
+np = NeoPixel(Pin(13), 16)
+current_led = 0
+
+def clear():
+    for i in range(16):
+        np[i] = (0, 0, 0)
+
+def rotating_red():
+    global current_led
+    clear()
+    np[current_led] = (255, 0, 0)
+    np[(current_led - 1) % 16] = (120, 0, 0)
+    np[(current_led - 2) % 16] = (40, 0, 0)
+    np.write()
+    current_led = (current_led + 1) % 16
+
+def celebrate():
+    for _ in range(2):
+        for i in range(16):
+            np[i] = (0, 255, 0)
+        np.write()
+        time.sleep_ms(200)
+        clear()
+        np.write()
+        time.sleep_ms(200)
+
+    for _ in range(40):
+        for i in range(16):
+            np[i] = (
+                random.randint(0,255),
+                random.randint(0,255),
+                random.randint(0,255)
+            )
+        np.write()
+        time.sleep_ms(70)
+
+# game state
+TRIGGER_ANGLE = 125
+RETURN_DELAY  = 4500
+
+active = [False]*5
+return_time = [0]*5
+
+# press queue
+press_count = [0]*5
+
+win_latch = False
+
+# stability check variables
+stable_count = 0
+REQUIRED_STABLE = 3
+
+# servo controls
+def trigger_servo(i):
+    # optional limit (avoid overload)
+    press_count[i] = min(press_count[i] + 1, 5)
+
+# WiFi control
+def handle_app_request(params):
+    print("App:", params)
+
+    if params.get("servo"):
+        try:
+            num = int(params.get("servo"))
+            if 1 <= num <= 5:
+                trigger_servo(num-1)
+                return {"status": "Queued " + str(num)}
+        except:
+            pass
+
+    return {"status": "OK"}
+
+app.start_ap("kmehrawifi", "zxcvbnm78")
+app.on_request(handle_app_request)
+
+# continous sweep servo
+sweep_forward = True
+last_sweep_toggle = 0
+SWEEP_INTERVAL = 1000  # ms
+
+# MAIN LOOP
+while True:
+    now = time.ticks_ms()
+
+    try:
+        app.process()
+    except:
+        pass
+
+    # YAYY U WON!!!
+    if not win_latch:
+        dist = get_distance()
+
+        if dist is not None and 2 < dist < WIN_DISTANCE:
+            stable_count += 1
+        else:
+            stable_count = 0
+
+        if stable_count >= REQUIRED_STABLE:
+            win_latch = True
+            set_continuous(CONT_STOP)
+            celebrate()
+            clear()
+            np.write()
+
+    # Neopixel LED animation
+    if not win_latch:
+        rotating_red()
+
+    # Servo queue system
+    for i in range(5):
+
+        # Start movement if idle and queued
+        if not active[i] and press_count[i] > 0:
+            set_angle(servos[i], TRIGGER_ANGLE)
+            active[i] = True
+            return_time[i] = time.ticks_add(now, RETURN_DELAY)
+
+        # Finish movement
+        if active[i] and time.ticks_diff(return_time[i], now) <= 0:
+            set_angle(servos[i], 0)
+            servos[i].duty(0)
+            active[i] = False
+            press_count[i] -= 1
+
+    # Continuous servo
+    if not win_latch:
+        if time.ticks_diff(now, last_sweep_toggle) > SWEEP_INTERVAL:
+            sweep_forward = not sweep_forward
+            last_sweep_toggle = now
+
+        if sweep_forward:
+            set_continuous(CONT_FWD)
+        else:
+            set_continuous(CONT_REV)
+
+    time.sleep_ms(20)
+]
 ```
 
 ---
@@ -424,7 +712,7 @@ Suggested sequence:
 # 11. MIT App Inventor Plan
 
 ## 11.1 Is an app part of this project?
-- [ ] Yes
+- [YES] Yes
 - [ ] No
 
 If yes, complete this section.
@@ -441,15 +729,13 @@ Examples:
 - displaying data.
 
 **Response:**  
-`[Write here]`
+`[Instead of having physical buttons and more wiring, it more convenient to have a different interface that makes the experience neater and better, Remote controlling]`
 
 ## 11.3 App Features
 
 | Feature | Purpose |
 |---|---|
-| `[Bluetooth connect button]` | `[Purpose]` |
-| `[Score display]` | `[Purpose]` |
-| `[Control button / slider / label]` | `[Purpose]` |
+| `[Buttons]` | `[Buttons pressed to make the servos move to pull the pins]` |
 
 ## 11.4 UI Mockup
 Insert a sketch or screenshot of the app interface.
@@ -457,12 +743,11 @@ Insert a sketch or screenshot of the app interface.
 **Insert image below:**  
 `[Upload image and link here]`
 
-## 11.5 App Screen Flow
+## 11.5 Connect: Join WiFi kmehrawifi
 
-1. `[Step 1]`
-2. `[Step 2]`
-3. `[Step 3]`
-4. `[Step 4]`
+1.Control: Press buttons (Servo 1–5)
+2.Play: Servos move, game responds
+3.Reset: Win → reset game
 
 ---
 
@@ -472,9 +757,11 @@ Insert a sketch or screenshot of the app interface.
 
 | Item | Quantity | In Kit? | Need to Buy? | Estimated Cost | Material / Spec | Why This Choice? |
 |---|---:|---|---|---:|---|---|
-| `[ESP32]` | `1` | `Yes` | `No` | `0` | `[Spec]` | `[Reason]` |
-| `[Item]` | `[Qty]` | `[Yes/No]` | `[Yes/No]` | `[Cost]` | `[Spec]` | `[Reason]` |
-| `[Item]` | `[Qty]` | `[Yes/No]` | `[Yes/No]` | `[Cost]` | `[Spec]` | `[Reason]` |
+| `[ESP32]` | `[1]` | `[Yes]` | `[No]` | `0` | `[Spec]` | `[It powers the arduino set]` |
+| `[Servo motor]` | `[6]` | `[Yes]` | `[Yes]` | `[125x5]` | `[Spec]` | `[Servo motors are easy to program and work with]` |
+| `[Neopixel]` | `[1]` | `[Yes]` | `[No]` | `0` | `[Spec]` | `[To be used as player feedback by using light for both game startup and win]` |
+| `[Ultrasonic sensor]` | `[1]` | `[Yes]` | `[No]` | `0` | `[Spec]` | `[To sense the coins as they fall into the win path]` |
+| `[Power supply]` | `[1]` | `[Yes]` | `[No]` | `0` | `[Spec]` | `[Gives additional voltage to the circuit - 5V]` |
 
 ## 12.2 Material Justification
 Explain why you selected your main materials and components.
@@ -486,7 +773,7 @@ Examples:
 - Why bearing instead of a plain shaft hole?
 
 **Response:**  
-`[Write here]`
+`[Pine wood instead of MDF because it would not hold the continuous movement happening through the game and also the MDF deteriorates with time. Arcylic is transparent and light so it does not put pressure on the servos.]`
 
 ## 12.3 Items to Purchase Separately
 
@@ -527,7 +814,11 @@ Include:
 - how documentation will be maintained.
 
 **Response:**  
-`[Write here]`
+- The tasks were divided as such: Khushi to handle the physical materials and app mechanics, Suksha to handle the working of the code and software debugging.
+- The decisions were made smoothly as communication was direct and immediate. Each memeber would keep track of their work and share progress timely with the other to ensure concurrence.
+- Progress goals for each week were set and both members focused on completion of those tasks to ensure good time management
+- Tasks were done on time. On the cases of hardware failure, we did fall back a couple steps but it helped us understand the process more and the time crunch wasn't as heavily felt as we had planned time for probavle failures too.
+- Documentation was maintained throughout the process as tasks were getting done. As for the compilation of sketches, pictures and flowcharts - that happened at the end.
 
 ## 13.2 Task Breakdown
 
@@ -546,13 +837,13 @@ Include:
 
 | Area | Main Owner | Support Owner |
 |---|---|---|
-| Concept and gameplay | `[Name]` | `[Name]` |
-| Electronics | `[Name]` | `[Name]` |
-| Coding | `[Name]` | `[Name]` |
-| App | `[Name]` | `[Name]` |
-| Mechanical build | `[Name]` | `[Name]` |
-| Testing | `[Name]` | `[Name]` |
-| Documentation | `[Name]` | `[Name]` |
+| Concept and gameplay | `[Khushi and Suksha]` |  |
+| Electronics | `[Khushi and Suksha]` |  |
+| Coding | `[Suksha]` | `[Khushi]` |
+| App | `[Khushi]` | `[Suksha]` |
+| Mechanical build | `[Khushi]` | `[Suksha]` |
+| Testing | `[Suksha]` | `[Khushi]` |
+| Documentation | `[Khushi and Suksha]` |  |
 
 ---
 
@@ -562,29 +853,29 @@ Include:
 
 ### Week 1 — Plan and De-risk
 Expected outcomes:
-- [ ] Idea finalized
-- [ ] Core interaction decided
-- [ ] Sketches made
-- [ ] BOM completed
-- [ ] Purchase needs identified
-- [ ] Key uncertainty identified
-- [ ] Basic feasibility tested
+- [YES] Idea finalized
+- [YES] Core interaction decided
+- [YES] Sketches made
+- [YES] BOM completed
+- [YES] Purchase needs identified
+- [YES] Key uncertainty identified
+- [YES] Basic feasibility tested
 
 ### Week 2 — Build Subsystems
 Expected outcomes:
-- [ ] Electronics tests completed
-- [ ] CAD / structure planning completed
-- [ ] App UI started if needed
-- [ ] Mechanical concept tested
-- [ ] Main subsystems partially working
+- [YES] Electronics tests completed
+- [YES] CAD / structure planning completed
+- [YES] App UI started if needed
+- [YES] Mechanical concept tested
+- [YES] Main subsystems partially working
 
 ### Week 3 — Integrate
 Expected outcomes:
-- [ ] Physical body built
-- [ ] Electronics integrated
-- [ ] Code connected to hardware
-- [ ] App connected if required
-- [ ] First playable version exists
+- [YES] Physical body built
+- [YES] Electronics integrated
+- [YES] Code connected to hardware
+- [YES] App connected if required
+- [YES] First playable version exists
 
 ### Week 4 — Refine and Finish
 Expected outcomes:
@@ -676,7 +967,11 @@ Include:
 - revisions.
 
 **Response:**  
-`[Write here]`
+The base structure was cut from pine wood to provide a sturdy foundation, while details and layered elements were made using coloured and transparent acrylic cut with a laser cutter. 3D printed parts were used for components like servo mounts and pin holders to ensure proper alignment. The system was assembled by fixing the servos onto the wooden frame and attaching threads from the servo arms to the pins.
+
+Fastening was done using adhesives and cable ties to keep all parts secure while still allowing small adjustments. Wiring involved connecting the servos, ultrasonic sensor, and NeoPixel strip to the ESP32 along with an external power supply, with careful routing to avoid interference with moving parts. Finishing included smoothing edges, aligning acrylic layers, and cleaning up the overall build.
+
+Several revisions were made to improve the pin mechanism—adjusting thread tension, servo angles, and alignment to reduce friction and prevent jamming during operation
 
 ## 17.2 Build Photos
 Add photos throughout the project.
@@ -712,12 +1007,12 @@ Example:
 Describe the final version of your project.
 
 **Response:**  
-`[Write here]`
+The final project is an interactive, app-controlled coin-release game that combines digital input with physical mechanics. A mobile app connects to the ESP32 via WiFi, allowing users to press buttons that trigger servo motors. Each servo pulls a pin using a thread-based mechanism, releasing coins into the system. The coins travel through a layered wooden and acrylic structure into a collection area. An ultrasonic sensor detects when enough coins reach the target, triggering a win condition. Throughout gameplay, a NeoPixel ring provides dynamic visual feedback, including continuous animations and a celebratory sequence upon winning. A continuously moving servo adds an additional layer of motion, making the system feel more alive and engaging.
 
 ## 18.2 What Works Well
-- `[Point 1]`
-- `[Point 2]`
-- `[Point 3]`
+- `[Reliable WiFi communication between the app and ESP32 for real-time control]`
+- `[Smooth and responsive servo-triggered pin mechanism for coin release]`
+- `[Engaging visual feedback through NeoPixel animations and win celebration]`
 
 ## 18.3 What Still Needs Improvement
 - `[Point 1]`
@@ -728,7 +1023,7 @@ Describe the final version of your project.
 How did the project change from the initial idea?
 
 **Response:**  
-`[Write here]`
+`[We had planned to use a load cell somehere during the experimentation but, that didn't work out and was replaced by an ultrasonic sensor. A few of the placement of the obstacles were changed for accuracy.]`
 
 ---
 
@@ -740,7 +1035,7 @@ What slowed you down?
 How well did you manage time, tasks, and responsibilities?
 
 **Response:**  
-`[Write here]`
+The team worked well in dividing tasks between coding, electronics, and mechanical design, which helped progress happen in parallel. We communicated ideas clearly and adapted quickly when something didn’t work. However, integration slowed us down, especially when combining the app, hardware, and mechanics. Time management was generally effective, but more structured testing earlier could have reduced last-minute fixes.
 
 ## 19.2 Technical Reflection
 What did you learn about:
@@ -763,13 +1058,13 @@ What did you learn about:
 - iteration?
 
 **Response:**  
-`[Write here]`
+`[We learned that designing for play requires immediate feedback and simple interactions. Delight comes from combining physical movement, lights, and unpredictability. Clarity is important so users understand what each action does without explanation. Physical interaction made the experience more engaging compared to purely digital systems. Iteration was key, as small changes in timing, motion, or layout significantly improved usability and overall experience.]`
 
 ## 19.4 If You Had One More Week
 What would you improve next?
 
 **Response:**  
-`[Write here]`
+`[We learned how to connect and control multiple components like servos, sensors, and LEDs using the ESP32. In coding, we understood how to handle real-time inputs from an app and manage timing without blocking the system. Mechanically, we explored how motion from a servo can be translated into linear movement using threads and pins. In fabrication, precision and alignment were important to avoid jamming. Integration taught us that combining all systems is the most complex part and requires continuous testing and adjustment.]`
 
 ---
 
