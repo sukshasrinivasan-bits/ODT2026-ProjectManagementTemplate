@@ -779,25 +779,25 @@ Examples:
 
 | Item | Why Needed | Purchase Link | Latest Safe Date to Procure | Status |
 |---|---|---|---|---|
-| `[Item]` | `[Reason]` | `[Link]` | `[Date]` | `[Pending / Ordered / Received]` |
-| `[Item]` | `[Reason]` | `[Link]` | `[Date]` | `[Pending / Ordered / Received]` |
+| `[Servo motors]` | `[A few of our servos were faulty so we needed to get some extra for the project]` | `[amazon link]` | `[12th April]` | `[Ordered on the 10th, arrivedd on the 19th - but since it was physically also procured, we had 4 extra.]` |
+| `[Power supply unit]` | `[The power supply unit had stopped working so it had to be replaced]` | `[Physically procured]` | `[17th April (It went out on the 17th)]` | `[Recieved on the 18th of April, tested and assembled.]` |
 
 ## 12.4 Budget Summary
 
 | Budget Item | Estimated Cost |
 |---|---:|
-| Electronics | `[Cost]` |
-| Mechanical parts | `[Cost]` |
-| Fabrication materials | `[Cost]` |
-| Purchased extras | `[Cost]` |
-| Contingency | `[Cost]` |
-| **Total** | `[Cost]` |
+| Electronics | `[0]` |
+| Mechanical parts | `[0]` |
+| Fabrication materials | `[0]` |
+| Purchased extras | `[Servos + Power supply = 770+500 = 1270 total]` |
+| Contingency | `[already factored]` |
+| **Total** | `[1270]` |
 
 ## 12.5 Budget Reflection
 If your cost is too high, what can be simplified, removed, substituted, or shared?
 
 **Response:**  
-`[Write here]`
+`[Although we had expected to do this without having to buy the electronics, we had left room for last minute purchases or fixes - and this came under that. As for the servos, it costed much less than expected - its just the delivery charges that added up. Overall, the cost was shared.]`
 
 ---
 
@@ -879,7 +879,7 @@ Expected outcomes:
 
 ### Week 4 — Refine and Finish
 Expected outcomes:
-- [ ] Technical bugs reduced
+- [YES] Technical bugs reduced
 - [ ] Playtesting completed
 - [ ] Improvements made
 - [ ] Documentation completed
@@ -995,9 +995,11 @@ Example:
 
 | Version | Date | What Changed | Why |
 |---|---|---|---|
-| `v1` | `[Date]` | `[Describe]` | `[Reason]` |
-| `v2` | `[Date]` | `[Describe]` | `[Reason]` |
-| `v3` | `[Date]` | `[Describe]` | `[Reason]` |
+| `v1` | `[25TH March]` | `[The base line code was made mapping out the functions of the servos and the neopixel]` | `[We were unsure which sensor to use]` |
+| `v2` | `[26th March]` | `[The working code had the code of the servos, neopixel and the load cell]` | `[The load cell was faulty, we weren't able to derive the calobration factor or procure a new one]` |
+| `v3` | `[2nd April]` | `[Working code with the ultrasonic sensor was written and versions of test codes for components were written]` | `[We zeroed down on using the ultrasonic sensor for the project and started testing the components]` |
+| `v4` | `[6th April]` | `[The final code was written after testing and retesting the components]` | `[A few rounds of testign were required to avoid running into faulty equipment]` |
+| `v5` | `[17th April]` | `[The final code needed to be have 2 values of the servos changed]` | `[It was changed to match the required angle of rotation on the board after mounting to overcome friction]` |
 
 ---
 
@@ -1046,7 +1048,7 @@ What did you learn about:
 - integration?
 
 **Response:**  
-`[Write here]`
+`[We learned how to mainuplate, and scaffold these electronics in the way we wanted. We understoof the functionalities of each component and made it suit of needs best by manipulation. While coding, you understand what works and what doesn't. A trial and error method of understanding each element is mostly fun. We leanred how to work with elements we had never worked with before and how to code them to extrat maximum properties. We self-learnt how to create and call functions. We did try calling classes in the code, but we found that a bit redundant. But in hindsight, I think classes would have made the code a bit more sophisticated and organized. The fabricaton process was about combining multiple processes like laser cutting, drilling, acrylic mounting, and wo]`
 
 ## 19.3 Design Reflection
 What did you learn about:
