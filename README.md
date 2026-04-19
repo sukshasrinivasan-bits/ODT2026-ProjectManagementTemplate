@@ -921,20 +921,20 @@ What is the single biggest uncertainty in your project at this stage?
 
 | What Needs Testing | How You Will Test It | Success Condition |
 |---|---|---|
-| `[Bluetooth connection]` | `[Method]` | `[What counts as success?]` |
-| `[Mechanism movement]` | `[Method]` | `[What counts as success?]` |
-| `[Sensor behavior]` | `[Method]` | `[What counts as success?]` |
-| `[App communication]` | `[Method]` | `[What counts as success?]` |
+| `[Bluetooth connection]` | `[Connect wiring system to the ESP32 and run the code. Connect to WiFi and open the App. The goal is to test the working of the buttons]` | `[If the App opens the correct interface and the buttons make the servos move as intended. DONE]` |
+| `[Mechanism movement - servo movement]` | `[Test codes were made for each component, so running them would make us test the servo's function]` | `[If 5 servos move 90 degree and the 6th moves 125 degrees]` |
+| `[Sensor behavior]` | `[The sensor is connectd to the neopixel for feedback, so we run the test code for the ultrasonic and neopixel. We drop a coin in the vicinity of the sensor and make it read the signal]` | `[If the signal is picked up, the neopixel light will change from red to green and then mulitple colours as celebration.]` |
+| `[App communication]` | `[Coonection to WiFi and button interface working]` | `[If the buttons make the servos move. Same as bluetooth test]` |
 
 ## 16.2 Playtesting Plan
 
 | Question | How You Will Check |
 |---|---|
-| Do players understand what to do? | `[Method]` |
-| Is the interaction satisfying? | `[Method]` |
-| Do players want another turn? | `[Method]` |
-| Is the challenge balanced? | `[Method]` |
-| Is the response clear and immediate? | `[Method]` |
+| Do players understand what to do? | `[Make them look at the game, and the app and see if they recognize it. If not, and some signifiers to show what is to be done.]` |
+| Is the interaction satisfying? | `[See if the players find the gameplay engaging]` |
+| Do players want another turn? | `[Make a logic not directly understandable until played so that the player is curious as to how to win.]` |
+| Is the challenge balanced? | `[Yes, players feel the game logic makes the challenge balanced]` |
+| Is the response clear and immediate? | `[The response of the neopixel makes the feedback loop complete and immediate.]` |
 
 ## 16.3 Testing and Debugging Log
 
@@ -947,8 +947,8 @@ What is the single biggest uncertainty in your project at this stage?
 
 | Tester | What They Did | What Confused Them | What They Enjoyed | What You Will Change |
 |---|---|---|---|---|
-| `[Peer / friend / classmate]` | `[Observation]` | `[Observation]` | `[Observation]` | `[Action]` |
-| `[Peer / friend / classmate]` | `[Observation]` | `[Observation]` | `[Observation]` | `[Action]` |
+| `[Teammate]` | `[Tested out the workings of the servos and the response mechanism]` | `[Why the servos weren't moving as intended]` | `[The overall flow of the game and the celevrations. They also liked how the game play was]` | `[The servo angles to match the max tension point to pull the pin out]` |
+| `[Teammate and peer]` | `[They played the game but noticed the neopixel going off before time]` | `[The neopixel was lighting up without even getting a win signal and resetting the game]` | `[They liked the animation of the LEDs but they needed to come onyl after the game was won - not after some amount of time]` | `[Change in code version]` |
 
 ---
 
@@ -1048,7 +1048,7 @@ What did you learn about:
 - integration?
 
 **Response:**  
-`[We learned how to mainuplate, and scaffold these electronics in the way we wanted. We understoof the functionalities of each component and made it suit of needs best by manipulation. While coding, you understand what works and what doesn't. A trial and error method of understanding each element is mostly fun. We leanred how to work with elements we had never worked with before and how to code them to extrat maximum properties. We self-learnt how to create and call functions. We did try calling classes in the code, but we found that a bit redundant. But in hindsight, I think classes would have made the code a bit more sophisticated and organized. The fabricaton process was about combining multiple processes like laser cutting, drilling, acrylic mounting, and wo]`
+`[We learned how to mainuplate, and scaffold these electronics in the way we wanted. We understoof the functionalities of each component and made it suit of needs best by manipulation. While coding, you understand what works and what doesn't. A trial and error method of understanding each element is mostly fun. We leanred how to work with elements we had never worked with before and how to code them to extrat maximum properties. We self-learnt how to create and call functions. We did try calling classes in the code, but we found that a bit redundant. But in hindsight, I think classes would have made the code a bit more sophisticated and organized. The fabricaton process was about combining multiple processes like laser cutting, drilling, acrylic mounting, and wood working to match what we had planned to do. Yes, we did run into difficulties here and there - but we figured a way out of the tension points given the workabilities and constraints of the materials we used. In reflection, we were present and weren't blind to the workings of the code and material integration.]`
 
 ## 19.3 Design Reflection
 What did you learn about:
