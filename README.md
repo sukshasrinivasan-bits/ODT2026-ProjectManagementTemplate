@@ -274,10 +274,10 @@ Add a sketch with labels showing:
 
 | Dimension | Value |
 |---|---|
-| Length | `[Write here]` |
-| Width | `[Write here]` |
-| Height | `[Write here]` |
-| Estimated weight | `[Write here]` |
+| Length | `[50cm]` |
+| Width | `[35cm]` |
+| Height | `[2cm]` |
+| Estimated weight | `[2kg]` |
 
 ---
 
@@ -780,7 +780,7 @@ Examples:
 
 | Item | Why Needed | Purchase Link | Latest Safe Date to Procure | Status |
 |---|---|---|---|---|
-| `[Servo motors]` | `[A few of our servos were faulty so we needed to get some extra for the project]` | `[amazon link]` | `[12th April]` | `[Ordered on the 10th, arrivedd on the 19th - but since it was physically also procured, we had 4 extra.]` |
+| `[Servo motors]` | `[A few of our servos were faulty so we needed to get some extra for the project]` | `[Amazon delivery]` | `[12th April]` | `[Ordered on the 10th, arrivedd on the 19th - but since it was physically also procured, we had 4 extra.]` |
 | `[Power supply unit]` | `[The power supply unit had stopped working so it had to be replaced]` | `[Physically procured]` | `[17th April (It went out on the 17th)]` | `[Recieved on the 18th of April, tested and assembled.]` |
 
 ## 12.4 Budget Summary
@@ -825,14 +825,14 @@ Include:
 
 | Task ID | Task | Owner | Estimated Hours | Deadline | Dependency | Status |
 |---|---|---|---:|---|---|---|
-| T1 | `[Finalize concept]` | `[Name]` | `2` | `[Date]` | `None` | `To Do` |
-| T2 | `[Complete BOM]` | `[Name]` | `1` | `[Date]` | `T1` | `To Do` |
-| T3 | `[Test electronics]` | `[Name]` | `2` | `[Date]` | `T1` | `To Do` |
-| T4 | `[Build structure]` | `[Name]` | `4` | `[Date]` | `T1` | `To Do` |
-| T5 | `[Write control code]` | `[Name]` | `4` | `[Date]` | `T3` | `To Do` |
-| T6 | `[Integrate system]` | `[Name]` | `4` | `[Date]` | `T4, T5` | `To Do` |
-| T7 | `[Playtest]` | `[Name]` | `2` | `[Date]` | `T6` | `To Do` |
-| T8 | `[Refine and document]` | `[Name]` | `3` | `[Date]` | `T7` | `To Do` |
+| T1 | `[Finalize concept]` | `[Khushi and Suksha]` | `2` | `[30th march]` | `None` | `Done` |
+| T2 | `[Complete BOM]` | `[Khushi and Suksha]` | `2` | `[6th april]` | `T1` | `Done` |
+| T3 | `[Test electronics]` | `[Khushi and Suksha]` | `2` | `[Continous]` | `T1` | `Done` |
+| T4 | `[Build structure]` | `[Khushi]` | `12` | `[16th April]` | `T1` | `Done` |
+| T5 | `[Write control code]` | `[Suksha]` | `16` | `[v1 was done on 6th April and v5 was done 17th April]` | `T3` | `Done` |
+| T6 | `[Integrate system]` | `[Khushi and Suksha]` | `12` | `[Date]` | `T4, T5` | `Done` |
+| T7 | `[Playtest]` | `[Kushi, Suksha and peers]` | `5` | `[Date]` | `T6` | `Done` |
+| T8 | `[Refine and document]` | `[Khushi and Suksha]` | `4` | `[Date]` | `T7` | `Done` |
 
 ## 13.3 Responsibility Split
 
