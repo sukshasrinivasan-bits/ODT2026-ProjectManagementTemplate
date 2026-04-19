@@ -521,8 +521,8 @@ import random
 app = AppInventorLink()
 
 # Servoss
-SERVO_MIN_DUTY = 26
-SERVO_MAX_DUTY = 128
+SERVO_MIN_DUTY = 22 #30 and 120 maybe works #or make servo arm longer
+SERVO_MAX_DUTY = 135
 
 servo_pins = [22, 4, 5, 18, 19]
 servos = [PWM(Pin(p), freq=50) for p in servo_pins]
@@ -534,9 +534,9 @@ def set_angle(servo, angle):
     servo.duty(duty)
 
 # continuous servo control
-CONT_STOP = 77
-CONT_FWD  = 90
-CONT_REV  = 64
+CONT_STOP = 80
+CONT_FWD  = 110
+CONT_REV  = 50 #if not working change to 50
 
 def set_continuous(speed):
     servo6.duty(speed)
@@ -604,8 +604,8 @@ def celebrate():
         time.sleep_ms(70)
 
 # game state
-TRIGGER_ANGLE = 125
-RETURN_DELAY  = 4500
+TRIGGER_ANGLE = 165
+RETURN_DELAY  = 1000 #can be in 1000-1500 range
 
 active = [False]*5
 return_time = [0]*5
@@ -704,6 +704,7 @@ while True:
             set_continuous(CONT_REV)
 
     time.sleep_ms(20)
+
 ]
 ```
 
